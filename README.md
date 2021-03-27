@@ -1,4 +1,4 @@
-# Description of the Article Mmost Read
+# Description of the Article Most Read
 Plugin to OJS 3.X, showing articles most read. This plugin isn't homologated by PKP, but is developed, and tested by AntSoft Systems On Demand. 
 This plugin display the 10 most accessed articles in the Journal.
 # License

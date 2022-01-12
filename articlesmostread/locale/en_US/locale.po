@@ -1,0 +1,33 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-06-09T10:36:44+02:00\n"
+"PO-Revision-Date: 2021-06-09T10:36:44+02:00\n"
+"Language: \n"
+
+msgid "plugins.blocks.ArticlesmostRead.displayName"
+msgstr "Articles Most Read Block"
+
+msgid "plugins.blocks.ArticlesmostRead.description"
+msgstr "This plugin shows most read articles published in the Journal in the sidebar."
+
+msgid "plugins.blocks.ArticlesmostRead.blockTitle"
+msgstr "Articles Most read last week"
+
+msgid "plugins.blocks.ArticlesmostRead.settings.title"
+msgstr "Articles Most Read Block settings"
+
+msgid "plugins.blocks.ArticlesmostRead.settings.days"
+msgstr "Days count"
+
+msgid "plugins.blocks.ArticlesmostRead.settings.blockTitle"
+msgstr "Block title"
+
+msgid "plugins.blocks.ArticlesmostRead.settings.saved"
+msgstr "Articles Most Read Block plugin settings saved"

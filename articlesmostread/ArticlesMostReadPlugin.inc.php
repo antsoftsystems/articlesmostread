@@ -3,8 +3,8 @@
 /**
  * @file plugins/blocks/AllMostRead/AllMostRead.inc.php
  *
- * Copyright (c) 2021 William Costa Rodrigues
- * Copyright (c) 2021 AntSoft Systems On Demand
+ * Copyright (c) 2021-2022 William Costa Rodrigues
+ * Copyright (c) 2021-2022 AntSoft Systems On Demand
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class AllMostRead
@@ -38,6 +38,56 @@ class ArticlesMostReadPlugin extends BlockPlugin {
 	 */
 	function getDescription() {
 		return __('plugins.block.ArticlesMostRead.description');
+	}
+/**
+	 * @copydoc Plugin::getActions()
+	 */
+	function getActions($request, $actionArgs) {
+		$router = $request->getRouter();
+		import('lib.pkp.classes.linkAction.request.AjaxModal');
+		return array_merge(
+			$this->getEnabled()?array(
+				new LinkAction(
+					'settings',
+					new AjaxModal(
+						$router->url($request, null, null, 'manage', null, array_merge($actionArgs, array('verb' => 'settings'))),
+						$this->getDisplayName()
+					),
+					__('manager.plugins.settings'),
+					null
+				),
+			):array(),
+			parent::getActions($request, $actionArgs)
+		);
+	}
+	/**
+	 * @copydoc Plugin::manage()
+	 */
+	function manage($args, $request) {
+		$this->import('MostAllReadSettingsForm');
+		$context = Application::getRequest()->getContext();
+		$contextId = ($context && isset($context) && $context->getId()) ? $context->getId() : CONTEXT_SITE;
+		switch($request->getUserVar('verb')) {
+			case 'settings':
+				$settingsForm = new MostReadSettingsForm($this, $contextId);
+				$settingsForm->initData();
+				return new JSONMessage(true, $settingsForm->fetch($request));
+			case 'save':
+				$settingsForm = new MostReadSettingsForm($this, $contextId);
+				$settingsForm->readInputData();
+				if ($settingsForm->validate()) {
+					$settingsForm->execute();
+					$notificationManager = new NotificationManager();
+					$notificationManager->createTrivialNotification(
+						$request->getUser()->getId(),
+						NOTIFICATION_TYPE_SUCCESS,
+						array('contents' => __('plugins.blocks.mostRead.settings.saved'))
+					);
+					return new JSONMessage(true);
+				}
+				return new JSONMessage(true, $settingsForm->fetch($request));
+		}
+		return parent::manage($args, $request);
 	}
 
 	/**
